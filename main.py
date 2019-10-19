@@ -1,5 +1,6 @@
 
-from remote.model import HostDef, KeyAuth, execute_as_ssh
+from remote.model import HostDef, KeyAuth
+from remote.ssh import execute_as_ssh
 
 if __name__ == '__main__':
     auth = KeyAuth(user='root', key_filename='/home/eldius/.ssh/id_rsa.pub')
