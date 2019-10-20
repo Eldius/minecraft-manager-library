@@ -18,6 +18,11 @@ if __name__ == '__main__':
         help="The server SSH user",
     )
     parser.add_argument(
+        "--ssh-key",
+        type=str,
+        help="The server SSH key file",
+    )
+    parser.add_argument(
         "--ssh-port",
         type=int,
         help="The server SSH port",
@@ -41,7 +46,7 @@ if __name__ == '__main__':
 
     auth = KeyAuth(
         user=args.ssh_user,
-        key_filename='/home/eldius/.ssh/id_rsa.pub',
+        key_filename=args.ssh_key,
     )
     host = HostDef(
         host=args.host,
