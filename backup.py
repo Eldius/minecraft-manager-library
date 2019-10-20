@@ -1,7 +1,7 @@
 from remote.model import HostDef, KeyAuth
 from remote.connection_utils import execute_as_ssh, execute_ssh_command, execute_ssh_script_template, execute_as_sftp
 from rcon.commands import execute_rcon_commands
-import argparse
+from utils.params_parser import parse_backup_args
 
 import sys
 
@@ -38,48 +38,7 @@ def backup_minecraft_server(host):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--host",
-        type=str,
-        help="The server host",
-    )
-    parser.add_argument(
-        "--ssh-user",
-        type=str,
-        help="The server SSH user",
-    )
-    parser.add_argument(
-        "--ssh-key",
-        type=str,
-        help="The server SSH key file",
-    )
-    parser.add_argument(
-        "--ssh-port",
-        type=int,
-        help="The server SSH port",
-    )
-    parser.add_argument(
-        "--rcon-pass",
-        type=str,
-        help="The RCON pass",
-    )
-    parser.add_argument(
-        "--rcon-port",
-        type=int,
-        help="The RCON port",
-    )
-    parser.add_argument(
-        "--dest-folder",
-        type=str,
-        help="The folder to put backup package",
-    )
-    parser.add_argument(
-        "--install-folder",
-        type=str,
-        help="The folder where Minecraft was installed",
-    )
-    args = parser.parse_args()
+    args = parse_backup_args()
 
     auth = KeyAuth(
         user=args.ssh_user,

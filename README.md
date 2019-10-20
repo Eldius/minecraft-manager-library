@@ -12,3 +12,8 @@
         --rcon-pass <rcon-password> \
         --install-folder <minecraft-installation-folder> \
         --dest-folder <local-path-to-save-backup-file>
+
+## Reference Links ##
+
+- [Plugin channels](https://wiki.vg/Plugin_channels)
+- [minecraft-plugins](https://github.com/topics/minecraft-plugins)
