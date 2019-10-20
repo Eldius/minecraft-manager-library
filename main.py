@@ -1,7 +1,7 @@
 
 from remote.model import HostDef, KeyAuth
 from remote.model import HostDef, KeyAuth
-from remote.connection_utils import execute_as_ssh, execute_ssh_command
+from remote.connection_utils import execute_as_ssh, execute_ssh_command, execute_ssh_script_template
 
 
 if __name__ == '__main__':
@@ -20,5 +20,8 @@ if __name__ == '__main__':
         print("---")
         execute_ssh_command(ssh, "ls -la /servers_with_error")
         print("---")
+        print("###")
+        execute_ssh_script_template(ssh=ssh, template_file="test_script.sh", host=host, extra_parameters=dict(servers_folder='/servers/minecraft'))
+        print("###")
 
     print(f"Still connected? {host.is_ssh_connected()}")
