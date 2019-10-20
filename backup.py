@@ -5,6 +5,38 @@ import argparse
 
 import sys
 
+def backup_minecraft_server(host):
+    with execute_rcon_commands(host) as mcr:
+        print("---")
+        print(f"save-all:")
+        print(mcr.command("/save-all"))
+        print("---")
+        print(f"save-off:")
+        print(mcr.command("/save-off"))
+
+    with execute_as_ssh(host) as ssh:
+        print("###")
+        print("create package")
+        execute_ssh_script_template(
+            ssh=ssh,
+            template_file="create_minecraft_backup_package.sh",
+            host=host,
+        )
+    with execute_as_sftp(host) as sftp:
+        print("###")
+        print("get package")
+        sftp.get(f"{host.install_folder}/../minecraft.tar.bz2", args.dest_folder)
+        print("###")
+        print("remove package")
+        sftp.remove(f"{host.install_folder}/../minecraft.tar.bz2")
+        print("###")
+
+    with execute_rcon_commands(host) as mcr:
+        print("---")
+        print(f"save-on:")
+        print(mcr.command("/save-on"))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -51,32 +83,4 @@ if __name__ == '__main__':
         rcon_pass=args.rcon_pass,
     )
 
-    with execute_rcon_commands(host) as mcr:
-        print("---")
-        print(f"save-all:")
-        print(mcr.command("/save-all"))
-        print("---")
-        print(f"save-off:")
-        print(mcr.command("/save-off"))
-
-    with execute_as_ssh(host) as ssh:
-        print("###")
-        print("create package")
-        execute_ssh_script_template(
-            ssh=ssh,
-            template_file="create_minecraft_backup_package.sh",
-            host=host,
-        )
-    with execute_as_sftp(host) as sftp:
-        print("###")
-        print("get package")
-        sftp.get(f"{host.install_folder}/../minecraft.tar.bz2", args.dest_folder)
-        print("###")
-        print("remove package")
-        sftp.remove(f"{host.install_folder}/../minecraft.tar.bz2")
-        print("###")
-
-    with execute_rcon_commands(host) as mcr:
-        print("---")
-        print(f"save-on:")
-        print(mcr.command("/save-on"))
+    backup_minecraft_server(host)
