@@ -74,6 +74,11 @@ if __name__ == '__main__':
         type=str,
         help="The folder to put backup package",
     )
+    parser.add_argument(
+        "--install-folder",
+        type=str,
+        help="The folder where Minecraft was installed",
+    )
     args = parser.parse_args()
 
     auth = KeyAuth(
@@ -86,6 +91,7 @@ if __name__ == '__main__':
         auth=auth,
         rcon_port=args.rcon_port,
         rcon_pass=args.rcon_pass,
+        install_folder=args.install_folder,
     )
 
     backup_minecraft_server(host)
