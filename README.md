@@ -8,6 +8,7 @@
         --ssh-user <ssh-username> \
         --ssh-key <ssh-key-file-path> \
         --ssh-port <ssh-port> \
+        --query-port <query-port> \
         --rcon-port <rcon-port> \
         --rcon-pass <rcon-password> \
         --install-folder <minecraft-installation-folder> \

@@ -25,6 +25,11 @@ def _common_args():
         help="The server SSH port",
     )
     parser.add_argument(
+        "--query-port",
+        type=str,
+        help="The server Query port",
+    )
+    parser.add_argument(
         "--rcon-pass",
         type=str,
         help="The RCON pass",
@@ -54,6 +59,7 @@ def parse_args():
         host=args.host,
         ssh_port=args.ssh_port,
         auth=auth,
+        query_port=args.query_port,
         rcon_port=args.rcon_port,
         rcon_pass=args.rcon_pass,
         install_folder=args.install_folder,

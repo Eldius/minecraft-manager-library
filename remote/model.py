@@ -8,6 +8,7 @@ class HostDef(object):
         host,
         ssh_port,
         auth,
+        query_port=None,
         rcon_port=None,
         rcon_pass=None,
         install_folder='/servers/minecraft',
@@ -17,6 +18,7 @@ class HostDef(object):
         self.auth = auth
         self.ssh = None
         self.sftp = None
+        self.query_port = query_port
         self.rcon_port = rcon_port
         self.rcon_pass = rcon_pass
         self.install_folder = install_folder
