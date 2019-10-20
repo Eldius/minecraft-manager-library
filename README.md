@@ -17,3 +17,4 @@
 
 - [Plugin channels](https://wiki.vg/Plugin_channels)
 - [minecraft-plugins](https://github.com/topics/minecraft-plugins)
+- [Dinnerbone/mcstatus](https://github.com/Dinnerbone/mcstatus)
