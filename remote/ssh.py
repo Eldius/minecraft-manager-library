@@ -7,6 +7,8 @@ def execute_as_ssh(host):
         yield ssh
     except:
         ssh.close()
+        host.disconnect_ssh()
         raise
     else:
         ssh.close()
+        host.disconnect_ssh()

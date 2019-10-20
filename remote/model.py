@@ -3,36 +3,36 @@ import paramiko
 
 
 class HostDef(object):
-    def __init__(self, host, port, auth):
+    def __init__(self, host, ssh_port, auth):
         self.host = host
-        self.port = port
+        self.ssh_port = ssh_port
         self.auth = auth
         self.ssh = None
 
-    def _is_ssh_connected(self):
+    def is_ssh_connected(self):
         return (
             (self.ssh != None)
-            and (ssh.get_transport() is not None)
-            and ssh.get_transport().is_active()
+            and (self.ssh.get_transport() is not None)
+            and self.ssh.get_transport().is_active()
         )
 
-    def _connect_ssh(self):
-        if not self._is_ssh_connected():
+    def connect_ssh(self):
+        if not self.is_ssh_connected():
             self.ssh = self.auth.get_connection(self)
 
-    def _disconnect_ssh(self):
-        if self._is_ssh_connected():
+    def disconnect_ssh(self):
+        if self.is_ssh_connected():
             self.ssh.close()
         self.ssh = None
 
     def _get_ssh_connection(self):
-        if not self._is_ssh_connected():
-            self._connect_ssh()
+        if not self.is_ssh_connected():
+            self.connect_ssh()
         return self.ssh
 
     def execute_as_ssh(self, command):
-        if not self._is_ssh_connected():
-            _connect_ssh()
+        if not self.is_ssh_connected():
+            connect_ssh()
         self.ssh.exec_command(command)
 
 
@@ -45,5 +45,5 @@ class KeyAuth(object):
         ssh = SSHClient()
         ssh.load_system_host_keys()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(hostname=host.host, port=host.port, username=self.user, key_filename=self.key_filename)
+        ssh.connect(hostname=host.host, port=host.ssh_port, username=self.user, key_filename=self.key_filename)
         return ssh
